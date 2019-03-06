@@ -87,7 +87,7 @@ int xEditor::onCommand(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 			break;
 		}
 		case MENU_COLORS: {
-			MessageBox(NULL, "[xEditor::onCommand] [MENU_COLORS] invoke", "Debug", MB_ICONASTERISK|MB_OK);
+			// MessageBox(NULL, "[xEditor::onCommand] [MENU_COLORS] invoke", "Debug", MB_ICONASTERISK|MB_OK);
 			ShowWindow(scolorWnd, SW_SHOW);
 			break;
 		}

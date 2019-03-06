@@ -64,7 +64,7 @@ int xSColor::onCreate(CREATESTRUCT *cs) {
 		
 		for(int i=0; i<wh; i++)
 			for(int j=0; j<hg; j++)
-					SetPixel(hMemDC, i, j, RGB(i, j+i, j));
+				SetPixel(hMemDC, i, j, RGB(i, j+i, j));
 		
 	}
 	
