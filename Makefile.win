@@ -4,13 +4,14 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o
-LINKOBJ  = main.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -mwindows
-INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = FUU.exe
-CXXFLAGS = $(CXXINCS) 
+RES      = tmp/FUU_private.res
+OBJ      = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o $(RES)
+LINKOBJ  = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"src" -mwindows
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"headers"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"headers"
+BIN      = MPL.exe
+CXXFLAGS = $(CXXINCS) -std=c++11
 CFLAGS   = $(INCS) 
 RM       = rm.exe -f
 
@@ -24,5 +25,18 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+tmp/main.o: main.cpp
+	$(CPP) -c main.cpp -o tmp/main.o $(CXXFLAGS)
+
+tmp/xEditor.o: src/xEditor.cpp
+	$(CPP) -c src/xEditor.cpp -o tmp/xEditor.o $(CXXFLAGS)
+
+tmp/xSColor.o: src/xSColor.cpp
+	$(CPP) -c src/xSColor.cpp -o tmp/xSColor.o $(CXXFLAGS)
+
+tmp/xMenu.o: src/xMenu.cpp
+	$(CPP) -c src/xMenu.cpp -o tmp/xMenu.o $(CXXFLAGS)
+
+tmp/FUU_private.res: FUU_private.rc 
+	$(WINDRES) -i FUU_private.rc --input-format=rc -o tmp/FUU_private.res -O coff 
+

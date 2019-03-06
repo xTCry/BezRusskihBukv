@@ -24,7 +24,7 @@ HostApplication=
 UseCustomMakefile=0
 CustomMakefile=
 CommandLine=
-Folders=
+Folders=headers
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
@@ -63,7 +63,7 @@ BuildCmd=
 [Unit2]
 FileName=main.h
 CompileCpp=1
-Folder=
+Folder=headers
 Compile=1
 Link=1
 Priority=1000

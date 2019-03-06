@@ -1,4 +1,7 @@
+#include "stdafx.h"
 #include "main.h"
+#include "xEditor.h"
+#include "xSColor.h"
 
 int posX = 150,
 	posY = 100,
@@ -16,18 +19,6 @@ int posX = 150,
 int selectableObjID = 0;
 bool mouseDown = false;
 
-#define MAX_SIZE_OJB 20
-#define MIN_SIZE_OJB 1
-
-#define OBJ_COUNT 4
-
-#define MAX_PEN_MODE 5
-#define XPEN_COLOR 1
-#define XPEN_SIZE 2
-#define XPEN_POSITION 3
-#define XPEN_ROTATION 4
-#define XPEN_CREATE 5
-
 HPEN hOldPen, 
 	hPen;
 
@@ -40,6 +31,80 @@ class MyPaint {
 };
 
 MyPaint MPT;
+
+
+/* The 'main' function of Win32 GUI programs: this is where execution starts */
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+	//hINST = hInstance;
+	
+	int 
+		sizeW = GetSystemMetrics(SM_CXSCREEN)/2,
+		sizeH = GetSystemMetrics(SM_CYSCREEN)/2,
+		wPosX = sizeW/2,
+		wPosY = sizeH/2;
+	
+	WNDCLASSEX wc; /* A properties struct of our window */
+	HWND hwnd; /* A 'HANDLE', hence the H, or a pointer to our window */
+	MSG msg; /* A temporary location for all messages */
+
+	/* zero out the struct and set the stuff we want to modify */
+	memset(&wc,0,sizeof(wc));
+	wc.cbSize		 = sizeof(WNDCLASSEX);
+	wc.hInstance	 = hInstance;
+	wc.hCursor		 = LoadCursor(NULL, IDC_ARROW);
+	
+	/* White, COLOR_WINDOW is just a #define for a system color, try Ctrl+Clicking it */
+	//wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+	wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(215, 220, 205)));
+	wc.hIcon		 = LoadIcon(NULL, IDI_APPLICATION); /* Load a standard icon */
+	wc.hIconSm		 = LoadIcon(NULL, IDI_APPLICATION); /* use the name "A" to use the project icon */
+	
+	
+	// Reg xEditor Class
+	wc.lpfnWndProc	 = xEditorWndProc; /* This is where we will send messages to */
+	wc.lpszClassName = xEditorClassName;
+	if(!RegisterClassEx(&wc)) {
+		MessageBox(NULL, "Window Registration Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
+		return 0;
+	}
+	
+	// Reg xSColor Class
+	wc.lpfnWndProc	 = xSColorWndProc; /* This is where we will send messages to */
+	wc.lpszClassName = xSColorClassName;
+	if(!RegisterClassEx(&wc)) {
+		MessageBox(NULL, "Window Registration Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
+		return 0;
+	}
+	
+
+	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, xEditorClassName, "xTCry LOL Paint", WS_VISIBLE|WS_OVERLAPPEDWINDOW,
+		wPosX, /* x */
+		wPosY, /* y */
+		sizeW, /* width */
+		sizeH, /* height */
+		NULL,NULL,hInstance,NULL);
+
+	if(hwnd == NULL) {
+		MessageBox(NULL, "Window Creation Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
+		return 0;
+	}
+
+	/*
+		This is the heart of our program where all input is processed and 
+		sent to WndProc. Note that GetMessage blocks code flow until it receives something, so
+		this loop will not produce unreasonably high CPU usage
+	*/
+	
+	while(GetMessage(&msg, NULL, 0, 0) > 0) { /* If no error is received... */
+		TranslateMessage(&msg); /* Translate key codes to chars if present */
+		DispatchMessage(&msg); /* Send it to WndProc */
+	}
+	return msg.wParam;
+}
+
+
+
+
 
 
 /* This is where all the input to the window goes to */
@@ -430,51 +495,3 @@ vector<xLine> getFastXLines(int type, int pX, int pY) {
 	return p;
 }
 
-/* The 'main' function of Win32 GUI programs: this is where execution starts */
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	WNDCLASSEX wc; /* A properties struct of our window */
-	HWND hwnd; /* A 'HANDLE', hence the H, or a pointer to our window */
-	MSG msg; /* A temporary location for all messages */
-
-	/* zero out the struct and set the stuff we want to modify */
-	memset(&wc,0,sizeof(wc));
-	wc.cbSize		 = sizeof(WNDCLASSEX);
-	wc.lpfnWndProc	 = WndProc; /* This is where we will send messages to */
-	wc.hInstance	 = hInstance;
-	wc.hCursor		 = LoadCursor(NULL, IDC_ARROW);
-	
-	/* White, COLOR_WINDOW is just a #define for a system color, try Ctrl+Clicking it */
-	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
-	wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(215, 220, 205)));
-	wc.lpszClassName = "WindowClass";
-	wc.hIcon		 = LoadIcon(NULL, IDI_APPLICATION); /* Load a standard icon */
-	wc.hIconSm		 = LoadIcon(NULL, IDI_APPLICATION); /* use the name "A" to use the project icon */
-
-	if(!RegisterClassEx(&wc)) {
-		MessageBox(NULL, "Window Registration Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
-		return 0;
-	}
-
-	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, "WindowClass", "xTCry LOL Paint", WS_VISIBLE|WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, /* x */
-		CW_USEDEFAULT, /* y */
-		800, /* width */
-		600, /* height */
-		NULL,NULL,hInstance,NULL);
-
-	if(hwnd == NULL) {
-		MessageBox(NULL, "Window Creation Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
-		return 0;
-	}
-
-	/*
-		This is the heart of our program where all input is processed and 
-		sent to WndProc. Note that GetMessage blocks code flow until it receives something, so
-		this loop will not produce unreasonably high CPU usage
-	*/
-	while(GetMessage(&msg, NULL, 0, 0) > 0) { /* If no error is received... */
-		TranslateMessage(&msg); /* Translate key codes to chars if present */
-		DispatchMessage(&msg); /* Send it to WndProc */
-	}
-	return msg.wParam;
-}
