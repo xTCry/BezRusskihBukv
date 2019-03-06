@@ -22,9 +22,6 @@ extern LRESULT CALLBACK DefaultWndProc(HWND, UINT, WPARAM, LPARAM);
 #define XPEN_CREATE 5
 
 
-
-//LRESULT CALLBACK DefaultWndProc(HWND, UINT, WPARAM, LPARAM);
-
 class xEditor: public xEvents {
 	public:
 		xEditor(HWND hWnd): hWnd (hWnd) { };
@@ -36,6 +33,8 @@ class xEditor: public xEvents {
 		
 	private:
 		HWND hWnd;
+		
+		HDC hdc;
 		
 		HWND scolorWnd;
 		

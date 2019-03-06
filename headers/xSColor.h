@@ -16,12 +16,19 @@ class xSColor: public xEvents {
 		
 		int onCreate(CREATESTRUCT* ct) override;
 		int onDestroy() override;
+		int onClose() override;
 		int onPaint() override;
 		int onCommand(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) override;
 		
 	private:
 		HWND hWnd,
 			hParentWnd;
+		RECT rect;
+		
+		HDC hdc, hMemDC;
+		
+		BYTE *pBts;
+		HBITMAP hbm, hbmOld;
 };
 
 #endif

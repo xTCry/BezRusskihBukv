@@ -30,8 +30,10 @@ LRESULT CALLBACK xEditorWndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 int xEditor::onCreate(CREATESTRUCT *cs) {
 	
-	scolorWnd = CreateWindowEx(WS_EX_TOOLWINDOW, xSColorClassName, "s Color", WS_OVERLAPPEDWINDOW, 20, 50, 100, 200, hWnd, NULL, NULL, NULL);
+	scolorWnd = CreateWindowEx(WS_EX_TOOLWINDOW, xSColorClassName, "s Color", WS_OVERLAPPEDWINDOW|WS_HSCROLL, 100, 300, 200, 200, hWnd, NULL, NULL, NULL);
 	ShowWindow(scolorWnd, SW_SHOW);
+	
+	hdc = GetDC(hWnd);
 	
 	// Set bar menu
 	xMenu menu;
@@ -40,7 +42,7 @@ int xEditor::onCreate(CREATESTRUCT *cs) {
 	
 	
 	
-	WNDCLASS wc;
+	/*WNDCLASS wc;
 	memset(&wc, 0, sizeof(WNDCLASS));
 	wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(125, 180, 40)));
 	wc.hCursor = LoadCursor(NULL, IDC_CROSS);
@@ -51,19 +53,28 @@ int xEditor::onCreate(CREATESTRUCT *cs) {
 	HWND child = CreateWindowEx(0, "TT", NULL, WS_CHILD|WS_VISIBLE, 20, 30, 60, 60, hWnd, NULL, NULL, NULL);
 			
 	ShowWindow(child, SW_NORMAL);
-	UpdateWindow(child);
+	UpdateWindow(child);*/
 	
-	return 0x0EBA1;
+	return 0;
 }
 
 int xEditor::onPaint() {
+	PAINTSTRUCT ps;
+	HDC uDC = BeginPaint(hWnd, &ps);
 	
-	return 0x0EBA1;
+	SetStretchBltMode(hdc, COLORONCOLOR);
+	
+	// Draw ...
+	
+	EndPaint(hWnd, &ps);
+	return 0;
 }
 int xEditor::onDestroy() {
 	menu.set(hWnd);
-	//ReleaseDC(hWindow, hdc);
+	
+	ReleaseDC(hWnd, hdc);
 	DestroyWindow(hWnd);
+	DestroyWindow(scolorWnd);
 	
 	PostQuitMessage(0);
 	return 0;
@@ -73,6 +84,11 @@ int xEditor::onCommand(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 	switch(wParam) {
 		case MENU_EXIT: {
 			PostMessage(hwnd, WM_CLOSE, 0, 0);
+			break;
+		}
+		case MENU_COLORS: {
+			MessageBox(NULL, "[xEditor::onCommand] [MENU_COLORS] invoke", "Debug", MB_ICONASTERISK|MB_OK);
+			ShowWindow(scolorWnd, SW_SHOW);
 			break;
 		}
 	}

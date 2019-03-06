@@ -113,7 +113,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
 	PAINTSTRUCT ps;
 	RECT rect;
 	
-		
+	
 	switch(Message) {
 		
 		case WM_CREATE: {
