@@ -1,15 +1,17 @@
-#ifndef XSCOLOR_H_INC
-#define XSCOLOR_H_INC
+#ifndef XTOOLS_H_INC
+#define XTOOLS_H_INC
 
 #include "../stdafx.h"
 #include "xEvents.h"
 
+#define BTN_ZZZ 1
 
 extern LRESULT CALLBACK DefaultWndProc(HWND, UINT, WPARAM, LPARAM);
-class xSColor: public xEvents {
+
+LRESULT CALLBACK xToolsWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam);
+class xTools: public xEvents {
 	public:
-		xSColor(HWND _hWnd) {
-			hWnd = _hWnd;
+		xTools(HWND hWnd) : hWnd (hWnd) {
 			hParentWnd = GetWindow(hWnd, GW_OWNER);
 			if(hParentWnd == 0) DestroyWindow(hWnd);
 		}
@@ -25,10 +27,11 @@ class xSColor: public xEvents {
 			hParentWnd;
 		RECT rect;
 		
-		HDC hdc, hMemDC;
+		HBITMAP hbm;
 		
-		BYTE *pBts;
-		HBITMAP hbm, hbmOld;
+		HWND btnZZZ;
 };
+
+
 
 #endif

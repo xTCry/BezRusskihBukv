@@ -1,9 +1,10 @@
 #ifndef MAIN_H_INC
 #define MAIN_H_INC
 
-LPCSTR xSColorClassName = "xSColor Class";
 LPCSTR xEditorClassName = "xEditor Class";
-LPCSTR DefaultClassName = "xEditor Class";
+LPCSTR xSColorClassName = "xSColor Class";
+LPCSTR xToolsClassName  = "xTools Class";
+LPCSTR DefaultClassName = "xDefault Class";
 
 LRESULT CALLBACK xEditorWndProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK xSColorWndProc(HWND, UINT, WPARAM, LPARAM);
@@ -15,6 +16,5 @@ LRESULT CALLBACK DefaultWndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-//HINSTANCE hINST;
 
 #endif

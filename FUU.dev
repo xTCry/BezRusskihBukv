@@ -29,24 +29,24 @@ IncludeVersionInfo=1
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=10
+UnitCount=12
 
 [VersionInfo]
 Major=0
 Minor=0
 Release=1
-Build=273
+Build=375
 LanguageID=1033
 CharsetID=1252
 CompanyName=xTCry
-FileVersion=0.0.1.273
+FileVersion=0.0.1.375
 FileDescription=My xTCry PaintLoL
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=0.0.1.273
+ProductVersion=0.0.1.375
 AutoIncBuildNr=1
 SyncProduct=1
 
@@ -142,6 +142,26 @@ BuildCmd=
 
 [Unit10]
 FileName=src\xMenu.cpp
+CompileCpp=1
+Folder=SRC
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=headers\xTools.h
+CompileCpp=1
+Folder=Headers
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=src\xTools.cpp
 CompileCpp=1
 Folder=SRC
 Compile=1

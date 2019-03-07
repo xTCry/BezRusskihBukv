@@ -9,8 +9,8 @@ class xEvents {
 		virtual int onDestroy() = 0;
 		virtual int onClose() { return 0x0EBA1; };
 		virtual int onPaint() { return 0x0EBA1; };
-		virtual int onCommand(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) { return 0x0EBA1; };
-		virtual int onMouseWhell(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) { return 0x0EBA1; };
+		virtual int onCommand(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) { return 0x0EBA1; };
+		virtual int onMouseWhell(short wheel_delta) { return 0x0EBA1; };
 		virtual int onKeyDown(int key, int flag) { return 0x0EBA1; };
 		
 		virtual int onMouseMove(int x, int y, int keys) { return 0x0EBA1; };
@@ -21,7 +21,7 @@ class xEvents {
 		virtual int onRButtonDown(int x, int y, int keys) { return 0x0EBA1; };
 		
 		
-		int event(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
+		int event(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 			int s = 0, pX=0, pY=0;
 			
 			switch(Message) {
@@ -54,11 +54,12 @@ class xEvents {
 					break;
 				}
 				case WM_COMMAND: {
-					s = onCommand(hwnd, Message, wParam, lParam);				
+					s = onCommand(hWnd, Message, wParam, lParam);				
 					break;
 				}
 				case WM_MOUSEWHEEL: {
-					s = onMouseWhell(hwnd, Message, wParam, lParam);
+					short wheel_delta = GET_WHEEL_DELTA_WPARAM(wParam);
+					s = onMouseWhell(wheel_delta);
 					break;
 				}
 				case WM_KEYDOWN: {
@@ -89,12 +90,12 @@ class xEvents {
 				
 				
 				default: {
-					return DefWindowProc(hwnd, Message, wParam, lParam);
+					return DefWindowProc(hWnd, Message, wParam, lParam);
 					break;
 				}
 			}
 			if(s == 0x0EBA1)
-				return DefWindowProc(hwnd, Message, wParam, lParam);
+				return DefWindowProc(hWnd, Message, wParam, lParam);
 			return 0;
 		}
 };

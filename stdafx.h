@@ -13,5 +13,6 @@
 
 using namespace std;
 
+void cc(LPCSTR msg);
 
 #endif

@@ -6,6 +6,7 @@
 #include "xMenu.h"
 
 extern LPCSTR xSColorClassName;
+extern LPCSTR xToolsClassName;
 extern LRESULT CALLBACK DefaultWndProc(HWND, UINT, WPARAM, LPARAM);
 
 
@@ -29,14 +30,23 @@ class xEditor: public xEvents {
 		int onCreate(CREATESTRUCT* ct) override;
 		int onDestroy() override;
 		int onPaint() override;
-		int onCommand(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) override;
+		int onCommand(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) override;
+		int onMouseWhell(short wheel_delta) override;
+		int onKeyDown(int key, int flag) override;
+		
+		int onMouseMove(int x, int y, int keys) override;
+		
+		int onLButtonUp(int x, int y, int keys) override;
+		int onLButtonDown(int x, int y, int keys) override;
 		
 	private:
 		HWND hWnd;
 		
 		HDC hdc;
 		
-		HWND scolorWnd;
+		RECT rect;
+		
+		HWND scolorWnd, toolsWnd;
 		
 		xMenu menu;
 
