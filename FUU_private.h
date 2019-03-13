@@ -5,19 +5,19 @@
 #define FUU_PRIVATE_H
 
 /* VERSION DEFINITIONS */
-#define VER_STRING	"0.0.1.379"
+#define VER_STRING	"0.0.1.380"
 #define VER_MAJOR	0
 #define VER_MINOR	0
 #define VER_RELEASE	1
-#define VER_BUILD	379
+#define VER_BUILD	380
 #define COMPANY_NAME	"xTCry"
-#define FILE_VERSION	"0.0.1.379"
+#define FILE_VERSION	"0.0.1.380"
 #define FILE_DESCRIPTION	"My xTCry PaintLoL"
 #define INTERNAL_NAME	""
 #define LEGAL_COPYRIGHT	""
 #define LEGAL_TRADEMARKS	""
 #define ORIGINAL_FILENAME	""
 #define PRODUCT_NAME	""
-#define PRODUCT_VERSION	"0.0.1.379"
+#define PRODUCT_VERSION	"0.0.1.380"
 
 #endif /*FUU_PRIVATE_H*/

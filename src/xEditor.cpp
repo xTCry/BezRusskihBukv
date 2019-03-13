@@ -32,11 +32,11 @@ int xEditor::onCreate(CREATESTRUCT *cs) {
 	
 	scolorWnd = CreateWindowEx(WS_EX_TOOLWINDOW, xSColorClassName, "s Color", WS_OVERLAPPEDWINDOW|WS_HSCROLL, CW_USEDEFAULT, CW_USEDEFAULT, 200, 200, hWnd, NULL, NULL, NULL);
 	//SetParent(hWnd, scolorWnd);
-	ShowWindow(scolorWnd, SW_SHOW);
+	//ShowWindow(scolorWnd, SW_SHOW);
 	
 	toolsWnd = CreateWindowEx(WS_EX_TOOLWINDOW, xToolsClassName, "Tools", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 100, 300, hWnd, NULL, NULL, NULL);
 	//SetParent(toolsWnd, hWnd);
-	ShowWindow(toolsWnd, SW_SHOW);
+	//ShowWindow(toolsWnd, SW_SHOW);
 	
 	hdc = GetDC(hWnd);
 	
