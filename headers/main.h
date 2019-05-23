@@ -1,5 +1,4 @@
-#ifndef MAIN_H_INC
-#define MAIN_H_INC
+#pragma once
 
 LPCSTR xEditorClassName = "xEditor Class";
 LPCSTR xSColorClassName = "xSColor Class";
@@ -16,5 +15,3 @@ LRESULT CALLBACK DefaultWndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM l
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
-
-#endif

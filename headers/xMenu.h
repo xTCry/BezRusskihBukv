@@ -1,5 +1,4 @@
-#ifndef XMENU_H_INC
-#define XMENU_H_INC
+#pragma once
 
 #include "../stdafx.h"
 
@@ -17,6 +16,3 @@ class xMenu {
 		HMENU bar;
 };
 
-
-
-#endif

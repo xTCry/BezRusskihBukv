@@ -1,26 +1,15 @@
-#ifndef XEDITOR_H_INC
-#define XEDITOR_H_INC
+#pragma once
 
 #include "../stdafx.h"
 #include "xEvents.h"
 #include "xMenu.h"
+#include "xTools.h"
+#include "xpBuffer.h"
+#include "xDrawLib.h"
 
 extern LPCSTR xSColorClassName;
 extern LPCSTR xToolsClassName;
 extern LRESULT CALLBACK DefaultWndProc(HWND, UINT, WPARAM, LPARAM);
-
-
-#define MAX_SIZE_OJB 20
-#define MIN_SIZE_OJB 1
-
-#define OBJ_COUNT 4
-
-#define MAX_PEN_MODE 5
-#define XPEN_COLOR 1
-#define XPEN_SIZE 2
-#define XPEN_POSITION 3
-#define XPEN_ROTATION 4
-#define XPEN_CREATE 5
 
 
 class xEditor: public xEvents {
@@ -31,7 +20,7 @@ class xEditor: public xEvents {
 		int onDestroy() override;
 		int onPaint() override;
 		int onCommand(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) override;
-		int onMouseWhell(short wheel_delta) override;
+		int onMouseWhell(short wheel_delta, int keys) override;
 		int onKeyDown(int key, int flag) override;
 		
 		int onMouseMove(int x, int y, int keys) override;
@@ -39,77 +28,41 @@ class xEditor: public xEvents {
 		int onLButtonUp(int x, int y, int keys) override;
 		int onLButtonDown(int x, int y, int keys) override;
 		
+		// ...
+		
+		void DrawPaint();
+		
 	private:
+		xpBuffer *xpBuff;
+		
 		HWND hWnd;
 		
-		HDC hdc;
+		HDC hDC;
 		
 		RECT rect;
 		
 		HWND scolorWnd, toolsWnd;
 		
 		xMenu menu;
-
-};
-
-
-
-
-
-
-
-// 
-struct xLine {
-	
-	xLine(int xStart, int xEnd, int yStart, int yEnd)
-		: xStart (xStart), xEnd (xEnd), yStart (yStart), yEnd (yEnd), pen (NULL), nup (false) { };
-	
-	xLine(int xStart, int xEnd, int yStart, int yEnd, HPEN pen)
-		: xStart (xStart), xEnd (xEnd), yStart (yStart), yEnd (yEnd), pen (pen), nup (false) { };
 		
-	xLine(int xStart, int xEnd, int yStart, int yEnd, bool nup)
-		: xStart (xStart), xEnd (xEnd), yStart (yStart), yEnd (yEnd), pen (NULL), nup (nup) { };
-	
-	xLine(int xStart, int xEnd, int yStart, int yEnd, HPEN pen, bool nup)
-		: xStart (xStart), xEnd (xEnd), yStart (yStart), yEnd (yEnd), pen (pen), nup (nup) { };
-	
-	int xStart;
-	int xEnd;
-	
-	int yStart;
-	int yEnd;
-	
-	bool nup;
-	
-	HPEN pen;
-
-	COLORREF color;
+		// Зажата ЛКМ
+		bool LMBHold = false;
+		// Позиция зажатой ЛКМ
+		POINT LMStartPos;
+		// Позиция текущей ЛКМ
+		POINT LMPos;
+		
+		
+		// Staff
+		int pSize;
+		int penMode;
+		Figures figure;
 };
 
 
-struct xObj {
-	xObj() : type (0) {};
-	
-	xObj(vector<xLine> lines)
-		: lines (lines), type (0) { };
 
-	xObj(vector<xLine> lines, int type)
-		: lines (lines), type (type) { };
-
-
-	vector<xLine> lines;
-	
-	int type;
-	// int size;	
-	// bool selected;
-};
-
-
+int intLERP2(int min, int max, int t);
 
 int updateDraw(HWND hWnd, RECT lprcUpdate);
 vector<xLine> getFastXLines(int type, int pX, int pY);
 
-
-
-
-#endif

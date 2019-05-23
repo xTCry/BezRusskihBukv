@@ -1,5 +1,4 @@
-#ifndef XSCOLOR_H_INC
-#define XSCOLOR_H_INC
+#pragma once
 
 #include "../stdafx.h"
 #include "xEvents.h"
@@ -30,5 +29,3 @@ class xSColor: public xEvents {
 		BYTE *pBts;
 		HBITMAP hbm, hbmOld;
 };
-
-#endif

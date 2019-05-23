@@ -5,8 +5,8 @@ CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
 RES      = tmp/FUU_private.res
-OBJ      = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o tmp/xTools.o $(RES)
-LINKOBJ  = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o tmp/xTools.o $(RES)
+OBJ      = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o tmp/xTools.o tmp/xpBuffer.o tmp/xDrawLib.o $(RES)
+LINKOBJ  = tmp/main.o tmp/xEditor.o tmp/xSColor.o tmp/xMenu.o tmp/xTools.o tmp/xpBuffer.o tmp/xDrawLib.o $(RES)
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"src" -mwindows
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"headers"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"headers"
@@ -39,6 +39,12 @@ tmp/xMenu.o: src/xMenu.cpp
 
 tmp/xTools.o: src/xTools.cpp
 	$(CPP) -c src/xTools.cpp -o tmp/xTools.o $(CXXFLAGS)
+
+tmp/xpBuffer.o: src/xpBuffer.cpp
+	$(CPP) -c src/xpBuffer.cpp -o tmp/xpBuffer.o $(CXXFLAGS)
+
+tmp/xDrawLib.o: src/xDrawLib.cpp
+	$(CPP) -c src/xDrawLib.cpp -o tmp/xDrawLib.o $(CXXFLAGS)
 
 tmp/FUU_private.res: FUU_private.rc 
 	$(WINDRES) -i FUU_private.rc --input-format=rc -o tmp/FUU_private.res -O coff 

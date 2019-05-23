@@ -1,5 +1,4 @@
-#ifndef XEVENTS_H_INC
-#define XEVENTS_H_INC
+#pragma once
 
 #include "../stdafx.h"
 
@@ -10,7 +9,7 @@ class xEvents {
 		virtual int onClose() { return 0x0EBA1; };
 		virtual int onPaint() { return 0x0EBA1; };
 		virtual int onCommand(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam) { return 0x0EBA1; };
-		virtual int onMouseWhell(short wheel_delta) { return 0x0EBA1; };
+		virtual int onMouseWhell(short wheel_delta, int keys) { return 0x0EBA1; };
 		virtual int onKeyDown(int key, int flag) { return 0x0EBA1; };
 		
 		virtual int onMouseMove(int x, int y, int keys) { return 0x0EBA1; };
@@ -59,7 +58,7 @@ class xEvents {
 				}
 				case WM_MOUSEWHEEL: {
 					short wheel_delta = GET_WHEEL_DELTA_WPARAM(wParam);
-					s = onMouseWhell(wheel_delta);
+					s = onMouseWhell(wheel_delta, wParam);
 					break;
 				}
 				case WM_KEYDOWN: {
@@ -100,4 +99,3 @@ class xEvents {
 		}
 };
 
-#endif
